@@ -1,0 +1,272 @@
+
+
+<!-- ion-content [fullscreen]="false" >
+  <div class="countdown">
+    <ion-label>
+      <ion-icon name="time-outline"></ion-icon>
+      <span>0d:1h:20m:53s</span>
+    </ion-label>
+  </div>
+  <ion-slides [options]="slideOpts" style="height:100%;" class="ion-padding">
+    <ion-slide>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12">
+            <img src="./assets/infocert-logo.png" class="logo" />
+          </ion-col>
+          <ion-col size="12">
+            <div class="ion-text-justify">Ciao Luca Rocchietti, per completare il processo di registrazione ti chiediamo di caricare le foto dei tuoi documenti</div>
+            <div>
+              <ion-list>
+                <ion-list-header>
+                  <ion-label>Devi ancora caricare:</ion-label>
+                </ion-list-header>
+                <ion-item>
+                  <ion-label>
+                    <ion-icon name="caret-forward-outline" slot="start"></ion-icon>
+                    Documento di Identità Fronte
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label>
+                    <ion-icon name="caret-forward-outline" slot="start"></ion-icon>
+                    Documento di Identità Retro
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label>
+                    <ion-icon name="caret-forward-outline" slot="start"></ion-icon>
+                    Fotografia Volto
+                  </ion-label>
+                </ion-item>
+              </ion-list>
+
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+
+    </ion-slide>
+    <ion-slide>
+      <h1>Slide 2</h1>
+    </ion-slide>
+    <ion-slide>
+      <h1>Slide 3</h1>
+    </ion-slide>
+  </ion-slides>
+</ion-content -->
+
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-thumbnail>
+        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+        <!-- img src="https://moca.eu-west-1.tsaws.infocert.it/mobile-capture/api/v1/resources/Demo/logo.png" -->
+      </ion-thumbnail>
+    </ion-buttons>
+    <ion-title>My Navigation Bar</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button id="open-modal" expand="block">
+        <ion-icon slot="icon-only" name="information-circle-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="presentPopover($event)">
+        <ion-icon slot="icon-only" name="earth-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <div class="countdown">
+    <ion-label>
+      <ion-icon name="time-outline"></ion-icon>
+      <span>0d:1h:20m:53s</span>
+    </ion-label>
+  </div>
+</ion-header>
+<ion-content fullscreen class="ion-padding" scroll-y="false">
+
+  <ion-slides #slides>
+    <ion-slide>
+      <div class="slide">
+        <img src="./assets/infocert-logo.png" class="logo"/>
+        <p class="ion-text-justify">
+          Ciao Luca Rocchietti, per completare il processo di registrazione
+          ti chiediamo di caricare le foto dei tuoi documenti
+        </p>
+        <ion-list>
+          <ion-list-header class="no-padding">
+            <ion-label class="ion-text-left uppercase list-title">Devi ancora caricare:</ion-label>
+          </ion-list-header>
+          <ion-item>
+            <ion-label>
+              <ion-icon name="caret-forward-outline" slot="start"></ion-icon>
+              Documento di Identità Fronte
+              <app-image-picker (imagePick)="onImagePicked($event)"></app-image-picker>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              <ion-icon name="caret-forward-outline" slot="start"></ion-icon>
+              Documento di Identità Retro
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              <ion-icon name="caret-forward-outline" slot="start"></ion-icon>
+              Fotografia Volto
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <div class="slide">
+        <div class="step-counter uppercase">
+          passo 1 di 3
+        </div>
+        <h2>Documento di Identità Fronte</h2>
+        <p>
+          Carica o scatta una foto del tuo documento
+          "documento di identità fronte".
+        </p>
+        <!-- ion-icon name="document-text-outline" class="big grey"></ion-icon -->
+        <ion-fab slot="fixed">
+          <ion-fab-button (click)="photoService.addNewToGallery()">
+            <ion-icon name="camera"></ion-icon>
+          </ion-fab-button>
+        </ion-fab>
+
+        <ion-grid>
+          <ion-row>
+          <ion-col size="3" *ngFor="let photo of photoService.photos; index as position">
+            <ion-img [src]="photo.webviewPath" (click)="showActionSheet(photo, position)"></ion-img>
+          </ion-col>
+          </ion-row>
+        </ion-grid>
+
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <div class="slide">
+        <div class="step-counter uppercase">
+          passo 2 di 3
+        </div>
+        <h2>Documento di Identità Retro</h2>
+        <p>
+          Carica o scatta una foto del tuo documento
+          "documento di identità retro".
+        </p>
+        <!-- ion-icon name="document-text-outline" class="big grey"></ion-icon -->
+        <ion-fab slot="fixed">
+          <ion-fab-button>
+            <ion-icon name="camera"></ion-icon>
+          </ion-fab-button>
+        </ion-fab>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <div class="slide">
+        <div class="step-counter uppercase">
+          passo 3 di 3
+        </div>
+        <h2>Fai un selfie</h2>
+        <p>
+          Carica o scatta una foto del tuo volto.
+        </p>
+        <!-- ion-icon name="document-text-outline" class="big grey"></ion-icon -->
+        <ion-fab slot="fixed">
+          <ion-fab-button>
+            <ion-icon name="camera"></ion-icon>
+          </ion-fab-button>
+        </ion-fab>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <div class="slide">
+        <ion-card class="success">
+          <ion-card-header>
+            <ion-icon name="checkmark-outline" class="big success-card-text"></ion-icon>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-text class="success-card-text">
+              <h1>Ciao Luca Rocchietti, hai già completato il caricamento dei tuoi documenti.</h1>
+            </ion-text>
+          </ion-card-content>
+        </ion-card>
+
+        <div>Nessun intervento è più richiesto</div>
+      </div>
+    </ion-slide>
+  </ion-slides>
+
+
+
+  <!-- ion-modal trigger="open-modal">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Informazioni su MObileCApture</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="cancel()">
+              <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-item>
+          <ion-label position="stacked">Enter your name</ion-label>
+          <ion-input type="text" placeholder="Your name" [(ngModel)]="name"></ion-input>
+        </ion-item>
+      </ion-content>
+    </ng-template>
+  </ion-modal-->
+  <ion-modal trigger="open-modal">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Informazioni su MObileCApture</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="cancel()">
+              <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="12" class="ion-text-center">
+              <img src="./assets/infocert-logo.png" class="logo" />
+            </ion-col>
+            <ion-col size="12" class="ion-text-center">
+              <p>Infocert S.p.A.</p>
+              <p>Copiright 2016 | INFOCERT S.p.A. - Partita IVA: 07945211006</p>
+              <p><small>versione 1.0</small></p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-content>
+    </ng-template>
+
+  </ion-modal>
+</ion-content>
+<ion-footer>
+  <ion-toolbar class="new-background-color" style="display: flex; justify-content: center; align-items: center;">
+
+    <ion-buttons slot="end">
+      <ion-button (click)="onNextStep()">
+        SUCCESSIVO
+        <ion-icon name="arrow-forward-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-footer>
+
+
+
+

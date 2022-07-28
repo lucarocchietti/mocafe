@@ -1,0 +1,7 @@
+{
+  "name": "mocafe",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
